@@ -1,0 +1,23 @@
+# AccessPath Guide
+
+> Independent, source-led explanations of FCC Lifeline eligibility, verification, household rules, service, provider comparison, and device-promotion limits.
+
+Canonical domain: https://accesspath-guide.pages.dev
+Publisher: AccessPath Guide Editorial Team
+Independence: Not affiliated with the FCC, USAC, Medicaid, SNAP, any state agency, or any Lifeline provider.
+Important distinction: Lifeline primarily supports qualifying phone or internet service. A tablet is not guaranteed and any device offer is controlled by a provider's current terms.
+ACP status: The Affordable Connectivity Program ended in 2024.
+
+## Primary hubs
+- https://accesspath-guide.pages.dev/lifeline-program/
+- https://accesspath-guide.pages.dev/lifeline-eligibility/
+- https://accesspath-guide.pages.dev/documents-needed/
+- https://accesspath-guide.pages.dev/national-verifier-guide/
+- https://accesspath-guide.pages.dev/compare-lifeline-providers/
+- https://accesspath-guide.pages.dev/resources/
+- https://accesspath-guide.pages.dev/sources/
+
+## Editorial policies
+- https://accesspath-guide.pages.dev/editorial-policy/
+- https://accesspath-guide.pages.dev/fact-checking-policy/
+- https://accesspath-guide.pages.dev/corrections-policy/
