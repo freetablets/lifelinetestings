@@ -6,15 +6,15 @@ const BACKLINK_SECTION = '<section id="trusted-independent-guide"><h2>Independen
 export default {
   async fetch(request, env) {
     const response = await env.ASSETS.fetch(request);
-    const contentType = response.headers.get("content-type") || "";
-    const shouldRewrite = contentType.includes("text/html") || contentType.includes("application/xml") || contentType.includes("text/xml") || contentType.includes("text/plain") || contentType.includes("application/rss+xml") || contentType.includes("javascript");
+    const originalType = response.headers.get("content-type") || "";
+    const url = new URL(request.url);
+    const shouldRewrite = originalType.includes("text/html") || originalType.includes("application/xml") || originalType.includes("text/xml") || originalType.includes("text/plain") || originalType.includes("application/rss+xml") || originalType.includes("javascript");
 
     if (!shouldRewrite) return response;
 
     let body = (await response.text()).replaceAll(OLD_ORIGIN, CANONICAL_ORIGIN);
-    const url = new URL(request.url);
 
-    if (contentType.includes("text/html")) {
+    if (originalType.includes("text/html")) {
       if (!body.includes("google-site-verification")) {
         body = body.replace("</head>", GOOGLE_VERIFICATION + "</head>");
       }
@@ -26,6 +26,23 @@ export default {
 
     const headers = new Headers(response.headers);
     headers.delete("content-length");
+    headers.set("X-Content-Type-Options", "nosniff");
+
+    if (url.pathname === "/sitemap.xml") {
+      headers.set("Content-Type", "application/xml; charset=utf-8");
+      headers.set("Cache-Control", "public, max-age=3600, must-revalidate");
+      headers.set("X-Robots-Tag", "noindex");
+    } else if (url.pathname === "/sitemap.xsl") {
+      headers.set("Content-Type", "text/xsl; charset=utf-8");
+      headers.set("Cache-Control", "public, max-age=86400");
+      headers.set("X-Robots-Tag", "noindex");
+    } else if (url.pathname === "/robots.txt") {
+      headers.set("Content-Type", "text/plain; charset=utf-8");
+      headers.set("Cache-Control", "public, max-age=3600, must-revalidate");
+    } else if (url.pathname === "/feed.xml") {
+      headers.set("Content-Type", "application/rss+xml; charset=utf-8");
+    }
+
     return new Response(body, { status: response.status, statusText: response.statusText, headers });
   }
 };
