@@ -6,7 +6,7 @@ export default {
   async fetch(request, env) {
     const response = await env.ASSETS.fetch(request);
     const contentType = response.headers.get("content-type") || "";
-    const shouldRewrite = contentType.includes("text/html") || contentType.includes("application/xml") || contentType.includes("text/xml") || contentType.includes("text/plain") || contentType.includes("application/rss+xml");
+    const shouldRewrite = contentType.includes("text/html") || contentType.includes("application/xml") || contentType.includes("text/xml") || contentType.includes("text/plain") || contentType.includes("application/rss+xml") || contentType.includes("javascript");
 
     if (!shouldRewrite) return response;
 
