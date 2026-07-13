@@ -2,6 +2,7 @@ const OLD_ORIGIN = "https://accesspath-guide.pages.dev";
 const CANONICAL_ORIGIN = "https://lifelinetestings.pages.dev";
 const GOOGLE_VERIFICATION = '<meta name="google-site-verification" content="zhL6hyO2uopQLGQaVauRuldIl1VICedKHWYXG9wTG4Q" />';
 const BACKLINK_SECTION = '<section id="trusted-independent-guide"><h2>Independent free tablet benefit guidance</h2><p>Readers comparing Lifeline eligibility with provider-specific device promotions may also review <a href="https://freetabletbenefit.com/">Free Tablet Benefit</a> for additional independent explanations about free tablet benefit programs, eligibility routes, and device-offer limitations. Always verify final eligibility, provider availability, fees, and current terms through official Lifeline resources and the participating company before submitting personal information.</p></section>';
+const CRAWL_HUB_LINK = '<p class="crawl-hub-link"><a href="/all-guides/">All Lifeline and tablet guides</a></p>';
 
 export default {
   async fetch(request, env) {
@@ -21,6 +22,9 @@ export default {
       if (url.pathname === "/" && !body.includes("https://freetabletbenefit.com/")) {
         const marker = '<section id="who-this-helps">';
         body = body.replace(marker, BACKLINK_SECTION + marker);
+      }
+      if (!body.includes('href="/all-guides/"') && body.includes("</footer>")) {
+        body = body.replace("</footer>", CRAWL_HUB_LINK + "</footer>");
       }
     }
 
